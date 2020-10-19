@@ -1,0 +1,100 @@
+#include <stdio.h>
+#define SIZE 5
+
+int A[SIZE];
+int front=-1, rear=-1;
+
+int isFull()
+{
+    if((front==rear+1)||(front==0 && rear==SIZE-1)) return 1;
+    return 0;
+}
+
+int isEmpty()
+{
+    if(front==-1) return 1;
+    return 0;
+}
+
+void enqueue()
+{
+    int element;
+    if(isFull())
+    printf("\nQueue is full.\n");
+    else
+    {
+        printf("\nEnter element to be inserted: ");
+        scanf("%d",&element);
+        if(front==-1) 
+        front=0;
+        rear=(rear+1)%SIZE;
+        A[rear]=element;
+        printf("\nInserted element is: %d",element);
+    }
+}
+
+int dequeue()
+{
+    int element;
+    if(isEmpty())
+    {
+        printf("\nQueue is empty.\n");
+        return(-1);
+    }
+    else
+    {
+        element=A[front];
+        if(front==rear)
+        {
+            front=-1;
+            rear=-1;
+        }
+        else
+        {
+            front=(front+1)%SIZE;
+        }
+        printf("\nThe deleted element is: %d",element);
+        return(element);
+    }
+}
+
+void display()
+{
+    int i;
+    if(isEmpty())
+      printf("\nQueue is empty.\n");
+    else
+    {
+        
+        printf("\nElements of the queue are: ");
+        for(i=front; i!=rear; i=(i+1)%SIZE)
+        {
+            printf("%d ",A[i]);
+            
+        }
+        printf("%d",A[i]);
+        
+    }
+}
+
+void main()
+ {
+     int op;
+     printf("\n MENU  ");
+     printf("\n1.Insert element\n2.Delete element\n3.Display\n4.EXIT");
+     
+     do{
+         printf("\nEnter your option :");
+         scanf("%d",&op);
+         switch(op)
+         {
+             case 1: enqueue();
+                     break;
+            case 2: dequeue();
+                    break;
+            case 3: display();
+                    break;
+         }
+       
+     } while(op!=4);
+ }
